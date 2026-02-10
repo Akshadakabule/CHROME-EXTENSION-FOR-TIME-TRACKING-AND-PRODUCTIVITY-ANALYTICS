@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Productivity Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Weekly Productivity Report</h2>
+
+<canvas id="chart" width="600" height="300"></canvas>
+
+<script>
+fetch("http://localhost:3000/analytics")
+  .then(res => res.json())
+  .then(data => {
+    if (data.length === 0) {
+      alert("No tracking data yet. Browse some websites first.");
+      return;
+    }
+
+    const sites = {};
+    data.forEach(item => {
+      sites[item.website] = (sites[item.website] || 0) + item.time;
+    });
+
+    new Chart(document.getElementById("chart"), {
+      type: "bar",
+      data: {
+        labels: Object.keys(sites),
+        datasets: [{
+          label: "Time Spent (seconds)",
+          data: Object.values(sites)
+        }]
+      }
+    });
+  })
+  .catch(err => {
+    alert("Backend not reachable. Is server running?");
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
