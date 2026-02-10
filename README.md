@@ -56,3 +56,7 @@ Browser loads: manifest.json
 Browser runs:
 background.js (service worker)
 script.js (popup/content)
+
+## Output:-
+
+<img width="1920" height="1020" alt="Image" src="https://github.com/user-attachments/assets/39179ae2-3c93-42fc-8c5b-73b18f909d52" />
